@@ -10,5 +10,7 @@ $ git init
 $ git add file1.txt
 // 提交文件(可以一次提交多个文件) -m 参数后面输入的是本次提交的说明
 $ git commit -m "add 3 files."
-// 命令可以让我们时刻掌握仓库当前的状态
+// 命令可以让我们时刻掌握仓库当前的状态, 要随时掌握工作区的状态，使用git status命令。
 $ git status
+// 顾名思义就是查看difference，显示的格式正是Unix通用的diff格式, 如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+$ git diff readme.txt 

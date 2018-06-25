@@ -6,8 +6,9 @@ $ cd learngit
 $ pwd
 //将目录变成git管理的仓库
 $ git init
-Initialized empty Git repository in /Users/michael/learngit/.git/
 // 添加一个文件到仓库
 $ git add file1.txt
 // 提交文件(可以一次提交多个文件) -m 参数后面输入的是本次提交的说明
 $ git commit -m "add 3 files."
+// 命令可以让我们时刻掌握仓库当前的状态
+$ git status

@@ -1,0 +1,3 @@
+先启动namenode
+进入hadoop安装目录，里面有一个sbin目录，里面有一个脚本可用于启动hadoop的进程
+hadoop-daemon.sh

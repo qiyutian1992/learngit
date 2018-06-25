@@ -43,3 +43,9 @@ $ git checkout -- learngit.txt
 
 // 文件就从版本库中被删除(其实还在缓存区, 可以用git reset HEAD <file>还原到工作区, 再用git checkout -- file撤销删除)
 $ git rm test.txt
+
+// 把一个已有的本地仓库与之关联
+$ git remote add origin https://github.com/qiyutian1992/learngit.git
+
+// 把本地库的所有内容推送到远程库
+$ git push -u origin master

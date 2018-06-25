@@ -40,3 +40,6 @@ $ git reset HEAD learngit.txt
 	一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
 	(git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令，我们在后面的分支管理中会再次遇到git checkout命令)
 $ git checkout -- learngit.txt 
+
+// 文件就从版本库中被删除(其实还在缓存区, 可以用git reset HEAD <file>还原到工作区, 再用git checkout -- file撤销删除)
+$ git rm test.txt

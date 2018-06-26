@@ -217,4 +217,15 @@ Scala
 		par 并行化
 			定义 : 
 				将一个集合并行化处理, 并行数量与电脑的核数相同
-		
+
+		Scala面向对象
+			object 
+				定义 : 
+					scala 的 object 叫对象;
+					scala 中 object 为单例, 其所有的方法和变量也都是静态的
+			class 
+				定义 : 
+					class 类名称
+			
+
+

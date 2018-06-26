@@ -59,3 +59,162 @@ Scala
 	注意:
 		在scala语言中，函数头等公民，可用直接用一个变量来接收她；
 		函数可以作为一个参数传递给一个方法；
+
+
+	集合
+		scala 中有三大集合 
+			序列 Seq
+			集 Set
+			映射 Map
+		集合又分为两种 
+			可变集合(scala.collection.mutable)
+			不可变集合(scala.collection.immutable)
+	元组 Tuple
+		概念
+			scala一共了一个TupleN, N 表示的是Tuple可以存放的数据项有多少
+		定义
+			定义一个拥有三个元素的元组 : val tp3 = new Tuple3("1","2","3")
+				可以简写为 : val tp3 = ("1","2","3")
+			Tuple 中可以放任意类型的数据 val tp2 : (Int, String) = (1,"a")
+				其中类型可以不写, 如果规定, 元组之后的数据必须按照定义的顺序来赋值
+		操作
+			交换
+				tp2.swap 只能对 2 个元素的tuple进行swap, 2个元素的Tuple又称之为对偶元组
+			遍历
+				TupleN.productIterator.foreach(x : Any => println(x))
+	数组 Array
+		不可变数组 Array
+			定义
+				val arr = Array[Int](1,3,5)
+				arr(0) = 2 // 将数组第一个元素进行重新赋值
+			注意
+				不可变指的是 Array 长度不能变, 一旦定义好了就无法改变
+				但这个数组的内容是可变的
+	可变数组 ArrayBuffer
+		定义
+			导包(因为默认是不可变数组 immutable, 所以需要导可变数组包) scala.collection.mutable._(_表示所有的类)
+			val buffer = new ArrayBuffer[类型](initSize)//initSize代表初始化大小
+		操作
+			添加
+				buffer.append(elem:类型)
+		注意
+			这个可变数组表示内容和长度都可以改变
+	序列 Seq
+		不可变序列 List
+		可变序列 需要导包 import scala.collection.mutable._ ListBuffer
+		操作
+			+= // 加一个元素
+			++= // 将一个序列加入这个序列
+			::
+			:::
+			Nil = List()
+				(2::(9::Nil))
+			Head 获取 List 的头元素
+			Tail 获取 List 的尾部元素列表, 除了头元素所有的都是尾部元素
+			如果 List 中只有一个元素, 头元素就是这个元素, 尾部列表为空列表List()
+	集 Set
+		不可变 Set
+			定义
+				val hashSet = HashSet[String]("1","1","2") // 元素不会重复 实际Set中只有 "1", "2"
+		可变 Set
+			导包 scala.collection.mutable.HashSet
+		操作
+			hashSet.add("100") // 添加元素
+			hashSet += "200" // 添加元素
+			hashSet += ("300", "400") // 一次性添加多个元素
+			hashSet.remove("100") // 删除一个元素
+	映射 Map Key-Vlaue
+		不可变 Map
+			定义 
+				val map = Map[String, Int]("a" -> 1,("b",2)) 
+			操作
+				map.get("a").get//如果能get到直接返回key对应的value, 如果key不存在就返回一个默认值
+				遍历 
+					for(i <- map) println(i) // 输出结果是 ("a",1) ("b",2)
+					for((k,_) <- map) println(k)
+		可变 Map
+			导包
+				import scala.collection.mutable.Map
+			定义
+				val map = Map[Stirng, Int]()
+			操作	
+				map.put("a", 1)
+				map += "b" -> 1  // 这个scala中映射关系的表达 ->
+				map.remove("a")
+				map -= ("b") // 括号可以省略
+				map == map2 // 将两个map合并, 存在同样的key
+
+	集合常用方法
+		map映射
+			定义 : 
+				map 方法是对调用者中的每个元素进行某种函数操作, 函数接受的参数类型和调用者中的元素类型是一致的, map方法调用后会返回一个新的集合
+			示例 : 
+				val arr = Array[Int](8, 1, 32, 3, 5, 6, 9, 11, 20)
+				// 定义一个函数对参数进行*10操作, 然后返回
+				val f1 = (x : Int) => x * 10
+				arr.map(f1)
+		flatten|flatMap
+			定义 :
+				如果集合的类型还是集合, 可以使用flatten 将集合内部的集合击破(压平)
+			示例 : 
+				val arrPlus = Array[List[Int]](List(1,2,3),List(2,3,4))
+				arrPlus.flatten //返回一个新的集合
+			flatMap 就是 map方法和flatten方法的组合
+		filter 过滤
+			定义 :
+				将数组中的数据筛选,返回一个新的数组
+			示例 : 
+				val arr = Array[Int](1,2,3,4,5,6,7,8,9)
+				arr.filter(x => x > 3)
+		zip 拉链
+			定义 : 
+				将目标集合与参数集合的元素一一对应, 数量以数量少的集合为主, 生成一个新的集合,泛型为元组
+			示例 :
+				val li1 = List(1,2,3,4,5)
+				val li2 = List(1,2,3,4,5,6)
+				li2.zip(li1) // 结果为 List[Int,Int]((1,1),(2,2)(3,3)(4,4)(5,5))
+		mkString 
+			定义 : 
+				将集合格式化成字符串
+			示例 : 
+				val li1 = List(1,2,3,4,5)
+				li1.mkString // String str = 12345
+				li1.mkString("|") // String str = 1|2|3|4|5
+		foreach 循环
+			定义 : 
+				将集合每个元素遍历一遍
+			示例 : 
+				val li1 = List(1,2,3,4,5)
+				li1.foreach(x => println(x)) 
+		length | size | sum | max | min | slice
+			定义 : 
+				length|size : 集合长度
+				sum : 返回集合的所有元素相加的和
+				max|min : 返回集合中的最大值或最小值
+				slice(from,until) : 对集合进行切割操作, 返回一个新的集合, 左闭右开 如果第二个参数超过集合长度,也按集合长度
+		sorted | sortBy | sortWith
+			定义 : 
+				sorted : 将数组升序排序, 该方法没有参数
+				sortBy : 遍历数组|集合,以每次遍历的元素的正负有关, 正为升序, 负为降序
+				sortWith : 类似冒泡排序 , < 是升序, > 是降序
+		groupBy | grouped
+			定义 : 
+				groupBy : 按照指定的条件进行分组
+				grouped(size : Int) : 按照给定的数字长度分组 
+			示例 (groupBy)
+				val arr = Array((jim,1),  (sheep,1), (qyt,1))
+				arr.groupBy(_._1) // 按照元组元素的第一位分组
+				val map = Map(sheep -> Array((sheep,1)),jim -> Array((jim,1)), qyt -> Array((qyt,1)))
+		fold | foldLeft | foldRight
+			定义 : 从左往右实行逻辑, 无论左右都是从左往右计算
+		reduce | reduceLeft
+			定义 : 将集合内的元素整合
+		union (并集)| intersect (交集) | diff (差集)
+			定义 : 
+				union : 将两个集合的元素合并
+				intersect : 将两个集合相同的元素放在一起 (不去重)
+				diff : 将两个集合的不同元素放在一起 (原理就是那元素一个个比对, 不去重)
+		par 并行化
+			定义 : 
+				将一个集合并行化处理, 并行数量与电脑的核数相同
+		
